@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://gam26tdcod5u"]
+
+[ext_resource type="Texture2D" uid="uid://u03sd03bpgaf" path="res://assets/background/BattleBackground.png" id="1_xfnia"]
+[ext_resource type="PackedScene" uid="uid://balnud1iwy5od" path="res://scenes/players/warrior.tscn" id="2_i5qts"]
+[ext_resource type="PackedScene" uid="uid://d5s271hl6f47" path="res://scenes/players/wizard.tscn" id="3_vnb4m"]
+[ext_resource type="PackedScene" uid="uid://bccp7vtfmlyq2" path="res://scenes/enemies/fireworm.tscn" id="4_5t2ls"]
+[ext_resource type="Script" uid="uid://cu1rsbjo4t86p" path="res://scripts/enemy_side.gd" id="4_walpe"]
+[ext_resource type="PackedScene" uid="uid://daej0loouyij0" path="res://scenes/enemies/sorcerer.tscn" id="5_walpe"]
+
+[node name="Battleground" type="Node2D" unique_id=1118431804]
+texture_filter = 1
+
+[node name="BattleBackground" type="Sprite2D" parent="." unique_id=379852908]
+texture_filter = 1
+position = Vector2(512, 245)
+texture = ExtResource("1_xfnia")
+
+[node name="Players" type="Node2D" parent="." unique_id=717490465]
+
+[node name="Warrior" parent="Players" unique_id=1706637346 instance=ExtResource("2_i5qts")]
+position = Vector2(213, 371)
+
+[node name="Wizard" parent="Players" unique_id=1355557831 instance=ExtResource("3_vnb4m")]
+position = Vector2(176, 479)
+animation = &"idle"
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1733614210]
+scale = Vector2(2, 2)
+script = ExtResource("4_walpe")
+
+[node name="Sorcerer" parent="Enemies" unique_id=280142443 instance=ExtResource("5_walpe")]
+position = Vector2(398, 142.5)
+animation = &"idle"
+flip_h = true
+
+[node name="Fireworm" parent="Enemies" unique_id=1858078133 instance=ExtResource("4_5t2ls")]
+position = Vector2(415.5, 269.00003)
+flip_h = true
