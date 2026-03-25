@@ -13,6 +13,8 @@
 [ext_resource type="Resource" uid="uid://bhvlbdx54c32n" path="res://moves/magic_palm.tres" id="8_c7dbr"]
 [ext_resource type="Resource" uid="uid://r5bexnna6j0n" path="res://moves/double_magic.tres" id="9_ln602"]
 [ext_resource type="Resource" uid="uid://bajj132ev010d" path="res://moves/magic_staff.tres" id="10_ft4gf"]
+[ext_resource type="Resource" uid="uid://1yva0o4rbwgw" path="res://moves/ghost_cloud.tres" id="13_ln602"]
+[ext_resource type="Resource" uid="uid://dx5ahewbyhl28" path="res://moves/fireball_shot.tres" id="15_ft4gf"]
 
 [node name="Battleground" type="Node2D" unique_id=1118431804]
 texture_filter = 1
@@ -39,9 +41,11 @@ script = ExtResource("4_walpe")
 
 [node name="SorcererCharacter" parent="Enemies" unique_id=1449053832 instance=ExtResource("5_vnb4m")]
 position = Vector2(424, 168.5)
+attacks = Array[ExtResource("4_h0efe")]([ExtResource("13_ln602")])
 
 [node name="FirewormCharacter" parent="Enemies" unique_id=1531177437 instance=ExtResource("6_5t2ls")]
 position = Vector2(390.5, 258.5)
+attacks = Array[ExtResource("4_h0efe")]([ExtResource("15_ft4gf")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=227590072]
 
