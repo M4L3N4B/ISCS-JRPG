@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://gam26tdcod5u"]
 
 [ext_resource type="Texture2D" uid="uid://u03sd03bpgaf" path="res://assets/background/BattleBackground.png" id="1_xfnia"]
+[ext_resource type="Script" uid="uid://6peviacv1rf2" path="res://scripts/players_side.gd" id="2_5t2ls"]
 [ext_resource type="PackedScene" uid="uid://bd1l71tdp7vqs" path="res://scenes/players/warrior_character.tscn" id="2_vnb4m"]
 [ext_resource type="PackedScene" uid="uid://reyjf1bw7s5i" path="res://scenes/players/wizard_character.tscn" id="3_5t2ls"]
 [ext_resource type="Script" uid="uid://cu1rsbjo4t86p" path="res://scripts/enemy_side.gd" id="4_walpe"]
@@ -16,11 +17,12 @@ position = Vector2(512, 245)
 texture = ExtResource("1_xfnia")
 
 [node name="Players" type="Node2D" parent="." unique_id=717490465]
+script = ExtResource("2_5t2ls")
 
-[node name="WarriorCharacter" parent="." unique_id=2139037068 instance=ExtResource("2_vnb4m")]
+[node name="WarriorCharacter" parent="Players" unique_id=2139037068 instance=ExtResource("2_vnb4m")]
 position = Vector2(252, 401)
 
-[node name="WizardCharacter" parent="." unique_id=1270548756 instance=ExtResource("3_5t2ls")]
+[node name="WizardCharacter" parent="Players" unique_id=1270548756 instance=ExtResource("3_5t2ls")]
 position = Vector2(206, 445)
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1733614210]
@@ -59,3 +61,6 @@ text = "Items"
 [node name="Skip" type="Button" parent="CanvasLayer/PlayerChoice" unique_id=1251186790]
 layout_mode = 2
 text = "Skip"
+
+[connection signal="next_player" from="Enemies" to="Players" method="_on_enemies_next_player"]
+[connection signal="pressed" from="CanvasLayer/PlayerChoice/Attack" to="Enemies" method="_on_attack_pressed"]

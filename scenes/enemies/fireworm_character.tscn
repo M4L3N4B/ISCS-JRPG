@@ -7,7 +7,7 @@
 [node name="FirewormCharacter" type="CharacterBody2D" unique_id=1531177437]
 script = ExtResource("1_xps6g")
 
-[node name="Fireworm" parent="." unique_id=1858078133 instance=ExtResource("1_tgs2y")]
+[node name="AnimatedSprite2D" parent="." unique_id=1858078133 instance=ExtResource("1_tgs2y")]
 animation = &"idle"
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=2023206334]

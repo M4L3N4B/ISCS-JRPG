@@ -6,17 +6,28 @@ extends CharacterBody2D
 
 @export var MAX_HEALTH: float = 100
 
+signal died(character)
+
 var current_health = MAX_HEALTH:
 	set(value):
 		current_health = value
 		_update_progress_bar()
-		_play_animation()
 		
+		if current_health > 0:
+			animation.play("hit")
+		
+		else:
+			animation.play("death")
+			await animation.animation_finished
+			emit_signal("died", self)
+			queue_free()
+
+func receive_damage(value):
+	current_health -= value
+
+# UI Functions
 func _update_progress_bar():
 	health_bar.value = current_health
-	
-func _play_animation():
-	animation.play("hit")
 
 func focus():
 	_focus.show()

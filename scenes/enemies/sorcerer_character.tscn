@@ -7,7 +7,7 @@
 [node name="SorcererCharacter" type="CharacterBody2D" unique_id=1449053832]
 script = ExtResource("1_uf743")
 
-[node name="Sorcerer" parent="." unique_id=280142443 instance=ExtResource("1_8b4ck")]
+[node name="AnimatedSprite2D" parent="." unique_id=280142443 instance=ExtResource("1_8b4ck")]
 animation = &"idle"
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=1195657101]
