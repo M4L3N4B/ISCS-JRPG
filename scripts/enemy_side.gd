@@ -42,7 +42,7 @@ func _process(delta):
 			combat_queue.push_back({"action": "attack", "target": indexSelect, "attack": playersSide.attack_chosen})
 			emit_signal("next_player")
 		
-	if combat_queue.size() == enemies.size() and not is_battle_playing:
+	if combat_queue.size() == playersSide.players.size() and not is_battle_playing:
 		is_battle_playing = true
 		_play_action(combat_queue)
 		
@@ -75,7 +75,7 @@ func _on_enemy_died(enemy):
 func show_player_choices():
 	playerChoice.show()
 	playerChoice.find_child("Attack").grab_focus()
-	
+
 func _reset_focus():
 	indexSelect = 0
 	for enemy in enemies:

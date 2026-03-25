@@ -5,6 +5,7 @@ var is_battle_playing: bool = false
 var indexSelect: int = 0
 
 @onready var attackChoice = $"../CanvasLayer/AttackChoice"
+@onready var enemySide = get_node("../Enemies")
 var attack_chosen: Attack = null
 
 func _ready():
@@ -63,11 +64,16 @@ func _on_player_died(player):
 		players[indexSelect].focus()
 
 func _on_enemies_next_player() -> void:
+	if combat_queue.size() == players.size():
+		return
+
 	if indexSelect < players.size() - 1:
 			indexSelect += 1
 			switch_focus(indexSelect, indexSelect-1)
 	else:
 		indexSelect = 0
 		switch_focus(indexSelect, players.size()-1)
+
+	enemySide.show_player_choices()
 
 # Source: https://www.youtube.com/watch?v=HEexLmt7enc
