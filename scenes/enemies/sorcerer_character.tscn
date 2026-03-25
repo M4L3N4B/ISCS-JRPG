@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://4k1kxhsc1j"]
+
+[ext_resource type="PackedScene" uid="uid://daej0loouyij0" path="res://scenes/enemies/sorcerer.tscn" id="1_8b4ck"]
+[ext_resource type="Script" uid="uid://cu55dtek8hjid" path="res://scripts/character.gd" id="1_uf743"]
+[ext_resource type="Texture2D" uid="uid://cto8nwkvghj3a" path="res://assets/tile_0067.png" id="3_yupcm"]
+
+[node name="SorcererCharacter" type="CharacterBody2D" unique_id=1449053832]
+script = ExtResource("1_uf743")
+
+[node name="Sorcerer" parent="." unique_id=280142443 instance=ExtResource("1_8b4ck")]
+animation = &"idle"
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1195657101]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -17.0
+offset_top = -44.0
+offset_right = 133.0
+offset_bottom = -17.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+value = 100.0
+fill_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Selected" type="Sprite2D" parent="." unique_id=1512398656]
+texture_filter = 1
+position = Vector2(-14.000001, -74)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_yupcm")
+centered = false

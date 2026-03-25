@@ -1,10 +1,10 @@
 extends Node2D
 
 func flip_sprites():
-	for child in get_children():
-		if child is Sprite2D or child is AnimatedSprite2D:
-			child.flip_h = true
-
+	var sprites = find_children("*", "Sprite2D", true, false)
+	sprites += find_children("*", "AnimatedSprite2D", true, false)
+	for s in sprites:
+		s.flip_h = true
 
 func _ready():
 	flip_sprites()

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cmk8gu1r0578t"]
+
+[ext_resource type="PackedScene" uid="uid://bccp7vtfmlyq2" path="res://scenes/enemies/fireworm.tscn" id="1_tgs2y"]
+[ext_resource type="Script" uid="uid://cu55dtek8hjid" path="res://scripts/character.gd" id="1_xps6g"]
+[ext_resource type="Texture2D" uid="uid://cto8nwkvghj3a" path="res://assets/tile_0067.png" id="3_snuhn"]
+
+[node name="FirewormCharacter" type="CharacterBody2D" unique_id=1531177437]
+script = ExtResource("1_xps6g")
+
+[node name="Fireworm" parent="." unique_id=1858078133 instance=ExtResource("1_tgs2y")]
+animation = &"idle"
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=2023206334]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.0
+offset_top = 41.0
+offset_right = 114.0
+offset_bottom = 68.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+value = 100.0
+fill_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Selected" type="Sprite2D" parent="." unique_id=1696766045]
+texture_filter = 1
+position = Vector2(-14, -79)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_snuhn")
+centered = false

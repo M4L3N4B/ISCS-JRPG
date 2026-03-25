@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://reyjf1bw7s5i"]
+
+[ext_resource type="PackedScene" uid="uid://d5s271hl6f47" path="res://scenes/players/wizard.tscn" id="1_5prb8"]
+[ext_resource type="Script" uid="uid://cu55dtek8hjid" path="res://scripts/character.gd" id="1_vhoq1"]
+[ext_resource type="Texture2D" uid="uid://cto8nwkvghj3a" path="res://assets/tile_0067.png" id="3_vmkcb"]
+
+[node name="WizardCharacter" type="CharacterBody2D" unique_id=1270548756]
+script = ExtResource("1_vhoq1")
+
+[node name="Wizard" parent="." unique_id=1355557831 instance=ExtResource("1_5prb8")]
+animation = &"idle"
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1469885364]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = 137.0
+offset_right = 75.0
+offset_bottom = 164.0
+grow_horizontal = 2
+value = 100.0
+fill_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Selected" type="Sprite2D" parent="." unique_id=317133093]
+texture_filter = 1
+position = Vector2(-46, -156)
+scale = Vector2(3, 3)
+texture = ExtResource("3_vmkcb")
+centered = false
