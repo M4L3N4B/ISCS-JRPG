@@ -4,6 +4,9 @@ var combat_queue: Array = []
 var is_battle_playing: bool = false
 var indexSelect: int = 0
 
+@onready var attackChoice = $"../CanvasLayer/AttackChoice"
+var attack_chosen: Attack = null
+
 func _ready():
 	players = get_children()
 	for player in players:
@@ -25,7 +28,32 @@ func _process(delta):
 func switch_focus(x, y):
 	players[x].focus()
 	players[y].unfocus()
+
+
+# Show the submenu of a player character's attacks
+func _show_attack_choices():
+	var player = players[indexSelect]
 	
+	# Remove previous attacks from attackChoice
+	for child in attackChoice.get_children():
+		child.queue_free()
+	
+	# Fill attackChoice with buttons for selected character's attacks
+	for attack in player.attacks:
+		var btn = Button.new()
+		btn.text = attack.name
+		btn.pressed.connect( _on_attack_selected.bind(attack) )
+		attackChoice.add_child(btn)
+	
+	attackChoice.show()
+	attackChoice.get_child(0).grab_focus() # Automatically select first option
+
+
+func _on_attack_selected(attack: Attack):
+	attackChoice.hide()
+	attack_chosen = attack
+
+
 func _on_player_died(player):
 	players.erase(player)
 	if indexSelect >= players.size():

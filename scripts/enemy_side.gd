@@ -5,6 +5,7 @@ var is_battle_playing: bool = false
 var indexSelect: int = 0
 
 @onready var playerChoice = $"../CanvasLayer/PlayerChoice"
+@onready var playersSide = $"../Players"
 
 signal next_player
 
@@ -35,22 +36,29 @@ func _process(delta):
 				switch_focus(indexSelect, indexSelect-1)
 				
 		if Input.is_action_just_pressed("Select Action"):
-			combat_queue.push_back(indexSelect)
+			if playersSide.attack_chosen == null:
+				return
+		
+			combat_queue.push_back({"action": "attack", "target": indexSelect, "attack": playersSide.attack_chosen})
 			emit_signal("next_player")
 		
 	if combat_queue.size() == enemies.size() and not is_battle_playing:
 		is_battle_playing = true
 		_play_action(combat_queue)
 		
+		
 func _play_action(stack):
-	for indexCombat in stack:
-		if indexCombat == -1:
+	for move in stack:
+		if move.action == "defend":
 			continue
-		enemies[indexCombat].receive_damage(15)
-		await get_tree().create_timer(1).timeout
+		if move.action == "attack":
+			enemies[move.target].receive_damage(move.attack.damage)
+			await get_tree().create_timer(1).timeout
+	
 	combat_queue.clear()
 	is_battle_playing = false
 	show_player_choices()
+			
 			
 func switch_focus(x, y):
 	enemies[x].focus()
@@ -79,11 +87,12 @@ func _focus_choosing():
 
 func _on_attack_pressed() -> void:
 	playerChoice.hide()
+	playersSide._show_attack_choices() # Show when attack button pressed
 	_focus_choosing()
 
 func _on_defend_pressed() -> void:
 	playerChoice.hide()
-	combat_queue.push_back(-1) # Push that no one is targeted
+	combat_queue.push_back({"action": "defend"}) # Push that no one is targeted
 	emit_signal("next_player")
 
 # Source: https://www.youtube.com/watch?v=HEexLmt7enc
