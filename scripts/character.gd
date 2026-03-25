@@ -8,8 +8,10 @@ extends CharacterBody2D
 @export var attacks: Array[Attack] = []
 signal died(character)
 
+# Gameplay loop variables
 var attack_charged: Attack = null
 var is_charging: bool = false
+var is_defending: bool = false
 
 var current_health = MAX_HEALTH:
 	set(value):
@@ -24,6 +26,14 @@ var current_health = MAX_HEALTH:
 			await animation.animation_finished
 			emit_signal("died", self)
 			queue_free()
+
+func receive_damage(value):
+	# Halve the damage taken if defending
+	if is_defending:
+		value *= 0.5
+		is_defending = false
+
+	current_health -= value
 
 
 func use_attack(attack: Attack, target: CharacterBody2D):
@@ -48,8 +58,10 @@ func use_attack(attack: Attack, target: CharacterBody2D):
 	target.receive_damage(end_damage)
 	
 
-func receive_damage(value):
-	current_health -= value
+# is_defending is applied in receive_damage
+func defend():
+	is_defending = true
+
 
 # UI Functions
 func _update_progress_bar():

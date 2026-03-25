@@ -44,6 +44,8 @@ func _process(delta):
 		
 func _play_action(stack):
 	for indexCombat in stack:
+		if indexCombat == -1:
+			continue
 		enemies[indexCombat].receive_damage(15)
 		await get_tree().create_timer(1).timeout
 	combat_queue.clear()
@@ -78,3 +80,10 @@ func _focus_choosing():
 func _on_attack_pressed() -> void:
 	playerChoice.hide()
 	_focus_choosing()
+
+func _on_defend_pressed() -> void:
+	playerChoice.hide()
+	combat_queue.push_back(-1) # Push that no one is targeted
+	emit_signal("next_player")
+
+# Source: https://www.youtube.com/watch?v=HEexLmt7enc

@@ -76,3 +76,4 @@ text = "Skip"
 
 [connection signal="next_player" from="Enemies" to="Players" method="_on_enemies_next_player"]
 [connection signal="pressed" from="CanvasLayer/PlayerChoice/Attack" to="Enemies" method="_on_attack_pressed"]
+[connection signal="pressed" from="CanvasLayer/PlayerChoice/Defend" to="Enemies" method="_on_defend_pressed"]
