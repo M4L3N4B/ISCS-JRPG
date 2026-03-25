@@ -3,10 +3,13 @@ extends CharacterBody2D
 @onready var _focus = $Selected
 @onready var animation = get_node_or_null("AnimatedSprite2D")
 @onready var health_bar = $HealthBar
-
+@export var character_name: String = ""
 @export var MAX_HEALTH: float = 100
-
+@export var attacks: Array[Attack] = []
 signal died(character)
+
+var attack_charged: Attack = null
+var is_charging: bool = false
 
 var current_health = MAX_HEALTH:
 	set(value):
@@ -21,6 +24,29 @@ var current_health = MAX_HEALTH:
 			await animation.animation_finished
 			emit_signal("died", self)
 			queue_free()
+
+
+func use_attack(attack: Attack, target: CharacterBody2D):
+	# Don't allow the attack if charged
+	if attack.charged and not is_charging:
+		is_charging = true
+		attack_charged = attack
+		print(character_name + " is charging up")
+		return
+	
+	# Allow next move to be performed
+	is_charging = false
+	attack_charged = null
+	
+	# Calculate crit
+	var end_damage = attack.damage
+	if randf() < attack.crit_chance:
+		end_damage *= 1.5
+		print("Critical hit")
+	
+	# Have opponent take damage
+	target.receive_damage(end_damage)
+	
 
 func receive_damage(value):
 	current_health -= value

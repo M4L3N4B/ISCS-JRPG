@@ -4,9 +4,15 @@
 [ext_resource type="Script" uid="uid://6peviacv1rf2" path="res://scripts/players_side.gd" id="2_5t2ls"]
 [ext_resource type="PackedScene" uid="uid://bd1l71tdp7vqs" path="res://scenes/players/warrior_character.tscn" id="2_vnb4m"]
 [ext_resource type="PackedScene" uid="uid://reyjf1bw7s5i" path="res://scenes/players/wizard_character.tscn" id="3_5t2ls"]
+[ext_resource type="Script" uid="uid://bp632sr3ulpfn" path="res://scripts/attack_resource.gd" id="4_h0efe"]
 [ext_resource type="Script" uid="uid://cu1rsbjo4t86p" path="res://scripts/enemy_side.gd" id="4_walpe"]
+[ext_resource type="Resource" uid="uid://7uarqsg1uo5" path="res://moves/lightning_slash.tres" id="5_bkg3l"]
 [ext_resource type="PackedScene" uid="uid://4k1kxhsc1j" path="res://scenes/enemies/sorcerer_character.tscn" id="5_vnb4m"]
 [ext_resource type="PackedScene" uid="uid://cmk8gu1r0578t" path="res://scenes/enemies/fireworm_character.tscn" id="6_5t2ls"]
+[ext_resource type="Resource" uid="uid://u8lt5vejhasu" path="res://moves/lightning_cleave.tres" id="6_6yst1"]
+[ext_resource type="Resource" uid="uid://bhvlbdx54c32n" path="res://moves/magic_palm.tres" id="8_c7dbr"]
+[ext_resource type="Resource" uid="uid://r5bexnna6j0n" path="res://moves/double_magic.tres" id="9_ln602"]
+[ext_resource type="Resource" uid="uid://bajj132ev010d" path="res://moves/magic_staff.tres" id="10_ft4gf"]
 
 [node name="Battleground" type="Node2D" unique_id=1118431804]
 texture_filter = 1
@@ -21,9 +27,11 @@ script = ExtResource("2_5t2ls")
 
 [node name="WarriorCharacter" parent="Players" unique_id=2139037068 instance=ExtResource("2_vnb4m")]
 position = Vector2(252, 401)
+attacks = Array[ExtResource("4_h0efe")]([ExtResource("5_bkg3l"), ExtResource("6_6yst1")])
 
 [node name="WizardCharacter" parent="Players" unique_id=1270548756 instance=ExtResource("3_5t2ls")]
 position = Vector2(206, 445)
+attacks = Array[ExtResource("4_h0efe")]([ExtResource("8_c7dbr"), ExtResource("9_ln602"), ExtResource("10_ft4gf")])
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1733614210]
 scale = Vector2(2, 2)

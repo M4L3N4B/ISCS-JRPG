@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://bajj132ev010d"]
+
+[ext_resource type="Script" uid="uid://bp632sr3ulpfn" path="res://scripts/attack_resource.gd" id="1_2egdj"]
+
+[resource]
+script = ExtResource("1_2egdj")
+name = "Magic Staff"
+damage = 25.0
+crit_chance = 0.7
+charged = true
+metadata/_custom_type_script = "uid://bp632sr3ulpfn"

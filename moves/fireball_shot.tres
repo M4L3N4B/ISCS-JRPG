@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://dx5ahewbyhl28"]
+
+[ext_resource type="Script" uid="uid://bp632sr3ulpfn" path="res://scripts/attack_resource.gd" id="1_vsrvr"]
+
+[resource]
+script = ExtResource("1_vsrvr")
+name = "Fireball Shot"
+damage = 15.0
+crit_chance = 0.05
+metadata/_custom_type_script = "uid://bp632sr3ulpfn"

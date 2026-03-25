@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://1yva0o4rbwgw"]
+
+[ext_resource type="Script" uid="uid://bp632sr3ulpfn" path="res://scripts/attack_resource.gd" id="1_26gdn"]
+
+[resource]
+script = ExtResource("1_26gdn")
+name = "Ghost Cloud"
+damage = 30.0
+crit_chance = 0.2
+charged = true
+metadata/_custom_type_script = "uid://bp632sr3ulpfn"

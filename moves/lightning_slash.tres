@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://7uarqsg1uo5"]
+
+[ext_resource type="Script" uid="uid://bp632sr3ulpfn" path="res://scripts/attack_resource.gd" id="1_c3hto"]
+
+[resource]
+script = ExtResource("1_c3hto")
+name = "Lightning Slash"
+damage = 20.0
+crit_chance = 0.1
+metadata/_custom_type_script = "uid://bp632sr3ulpfn"

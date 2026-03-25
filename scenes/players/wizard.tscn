@@ -331,4 +331,6 @@ animations = [{
 texture_filter = 1
 scale = Vector2(2.75, 2.75)
 sprite_frames = SubResource("SpriteFrames_1g42w")
-animation = &"run"
+animation = &"attack2"
+frame = 7
+frame_progress = 1.0

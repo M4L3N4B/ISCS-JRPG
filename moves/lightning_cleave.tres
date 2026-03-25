@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://u8lt5vejhasu"]
+
+[ext_resource type="Script" uid="uid://bp632sr3ulpfn" path="res://scripts/attack_resource.gd" id="1_wmvqh"]
+
+[resource]
+script = ExtResource("1_wmvqh")
+name = "Lightning Cleave"
+damage = 30.0
+charged = true
+metadata/_custom_type_script = "uid://bp632sr3ulpfn"

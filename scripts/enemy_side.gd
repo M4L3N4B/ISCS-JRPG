@@ -78,5 +78,3 @@ func _focus_choosing():
 func _on_attack_pressed() -> void:
 	playerChoice.hide()
 	_focus_choosing()
-
-# Source: https://www.youtube.com/watch?v=HEexLmt7enc

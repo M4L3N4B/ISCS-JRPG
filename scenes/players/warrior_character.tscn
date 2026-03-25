@@ -8,9 +8,7 @@
 script = ExtResource("1_k4l61")
 
 [node name="AnimatedSprite2D" parent="." unique_id=1706637346 instance=ExtResource("1_le8vw")]
-animation = &"hit"
-frame = 2
-frame_progress = 1.0
+animation = &"idle"
 
 [node name="Selected" type="Sprite2D" parent="." unique_id=1827803059]
 texture_filter = 1
