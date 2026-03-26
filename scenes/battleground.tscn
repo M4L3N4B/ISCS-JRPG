@@ -29,10 +29,12 @@ script = ExtResource("2_5t2ls")
 
 [node name="WarriorCharacter" parent="Players" unique_id=2139037068 instance=ExtResource("2_vnb4m")]
 position = Vector2(252, 401)
+character_name = "Warrior (P1)"
 attacks = Array[ExtResource("4_h0efe")]([ExtResource("5_bkg3l"), ExtResource("6_6yst1")])
 
 [node name="WizardCharacter" parent="Players" unique_id=1270548756 instance=ExtResource("3_5t2ls")]
 position = Vector2(206, 445)
+character_name = "Wizard (P2)"
 attacks = Array[ExtResource("4_h0efe")]([ExtResource("8_c7dbr"), ExtResource("9_ln602"), ExtResource("10_ft4gf")])
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1733614210]
@@ -41,10 +43,12 @@ script = ExtResource("4_walpe")
 
 [node name="SorcererCharacter" parent="Enemies" unique_id=1449053832 instance=ExtResource("5_vnb4m")]
 position = Vector2(424, 168.5)
+character_name = "Sorcerer (E1)"
 attacks = Array[ExtResource("4_h0efe")]([ExtResource("13_ln602")])
 
 [node name="FirewormCharacter" parent="Enemies" unique_id=1531177437 instance=ExtResource("6_5t2ls")]
 position = Vector2(390.5, 258.5)
+character_name = "Fireworm (E2)"
 attacks = Array[ExtResource("4_h0efe")]([ExtResource("15_ft4gf")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=227590072]

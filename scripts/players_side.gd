@@ -3,6 +3,8 @@ var players: Array = []
 var combat_queue: Array = []
 var is_battle_playing: bool = false
 var indexSelect: int = 0
+var is_choosing_attack: bool = false
+var is_attackchoice_hidden: bool = true
 
 @onready var attackChoice = $"../CanvasLayer/AttackChoice"
 @onready var enemySide = get_node("../Enemies")
@@ -16,12 +18,12 @@ func _ready():
 	players[1].unfocus()
 
 func _process(delta):
-	if Input.is_action_just_pressed("Select Up"):
+	if Input.is_action_just_pressed("Select Up") and not is_choosing_attack:
 		if indexSelect > 0:
 			indexSelect -= 1
 			switch_focus(indexSelect, indexSelect+1)
 			
-	if Input.is_action_just_pressed("Select Down"):
+	if Input.is_action_just_pressed("Select Down") and not is_choosing_attack:
 		if indexSelect < players.size() - 1:
 			indexSelect += 1
 			switch_focus(indexSelect, indexSelect-1)
@@ -30,9 +32,10 @@ func switch_focus(x, y):
 	players[x].focus()
 	players[y].unfocus()
 
-
 # Show the submenu of a player character's attacks
 func _show_attack_choices():
+	is_choosing_attack = true
+	is_attackchoice_hidden = false
 	var player = players[indexSelect]
 	
 	# Remove previous attacks from attackChoice
@@ -49,11 +52,10 @@ func _show_attack_choices():
 	attackChoice.show()
 	attackChoice.get_child(0).grab_focus() # Automatically select first option
 
-
 func _on_attack_selected(attack: Attack):
 	attackChoice.hide()
+	is_attackchoice_hidden = true
 	attack_chosen = attack
-
 
 func _on_player_died(player):
 	players.erase(player)
@@ -75,5 +77,16 @@ func _on_enemies_next_player() -> void:
 		switch_focus(indexSelect, players.size()-1)
 
 	enemySide.show_player_choices()
+	
+func reset_turn():
+	indexSelect = 0
+	is_choosing_attack = false
+	is_attackchoice_hidden = true
+	attack_chosen = null
+	
+	if players.size() > 0:
+		for player in players:
+			player.unfocus()
+		players[0].focus()
 
 # Source: https://www.youtube.com/watch?v=HEexLmt7enc

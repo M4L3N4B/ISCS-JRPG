@@ -20,12 +20,18 @@ var current_health = MAX_HEALTH:
 		
 		if current_health > 0:
 			animation.play("hit")
+			await animation.animation_finished
+			animation.play("idle")
 		
 		else:
 			animation.play("death")
 			await animation.animation_finished
 			emit_signal("died", self)
 			queue_free()
+
+func _ready() -> void:
+	if animation:
+		animation.play("idle")
 
 func receive_damage(value):
 	# Halve the damage taken if defending
@@ -37,11 +43,13 @@ func receive_damage(value):
 
 
 func use_attack(attack: Attack, target: CharacterBody2D):
+	if animation:
+		animation.play("attack")
+		await animation.animation_finished
 	# Don't allow the attack if charged
 	if attack.charged and not is_charging:
 		is_charging = true
 		attack_charged = attack
-		print(character_name + " is charging up")
 		return
 	
 	# Allow next move to be performed
@@ -56,6 +64,9 @@ func use_attack(attack: Attack, target: CharacterBody2D):
 	
 	# Have opponent take damage
 	target.receive_damage(end_damage)
+	
+	if animation:
+		animation.play("idle")
 	
 
 # is_defending is applied in receive_damage
