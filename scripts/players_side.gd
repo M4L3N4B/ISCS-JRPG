@@ -18,8 +18,8 @@ func _ready():
 	players[1].unfocus()
 
 func _process(_delta):
-	# Don't allow player focus to move when choosing target
-	if not (playerChoice.visible or attackChoice.visible):
+	# Don't allow player focus to move when choosing attack or target
+	if not playerChoice.visible:
 		return
 	
 	if Input.is_action_just_pressed("Select Up"):
