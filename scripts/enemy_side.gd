@@ -23,7 +23,12 @@ func _ready():
 	enemies[1].unfocus()
 	show_player_choices()
 
+
+# Handles keypresses
 func _process(delta):
+	if is_battle_playing:
+		return
+		
 	if not playerChoice.visible:
 		# Don't allow enemy focus to move when players are still choosing
 		if playersSide.playerChoice.visible or playersSide.attackChoice.visible:
@@ -44,6 +49,7 @@ func _process(delta):
 				return
 		
 			combat_queue.push_back({"action": "attack", "target": indexSelect, "attack": playersSide.attack_chosen})
+			playersSide.attack_chosen = null
 			emit_signal("next_player")
 		
 	if combat_queue.size() == playersSide.players.size() and not is_battle_playing:

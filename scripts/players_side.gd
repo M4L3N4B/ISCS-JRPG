@@ -17,7 +17,7 @@ func _ready():
 	players[0].focus()
 	players[1].unfocus()
 
-func _process(delta):
+func _process(_delta):
 	# Don't allow player focus to move when choosing target
 	if not (playerChoice.visible or attackChoice.visible):
 		return
@@ -51,16 +51,17 @@ func _show_attack_choices():
 	
 	# Remove previous attacks from attackChoice
 	for child in attackChoice.get_children():
-		child.queue_free()
+		child.free()
 	
 	# Fill attackChoice with buttons for selected character's attacks
 	for attack in player.attacks:
 		var btn = Button.new()
-		btn.text = attack.name
+		btn.text  = attack.name
 		btn.pressed.connect( _on_attack_selected.bind(attack) )
 		attackChoice.add_child(btn)
 	
 	attackChoice.show()
+	playerChoice.find_child("Attack").release_focus()
 	attackChoice.get_child(0).grab_focus() # Automatically select first option
 
 
