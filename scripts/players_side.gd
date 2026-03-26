@@ -18,6 +18,14 @@ func _ready():
 	players[1].unfocus()
 
 func _process(_delta):
+	# Go back to previous menu
+	if attackChoice.visible:
+		if Input.is_action_just_pressed("ui_text_backspace"):
+			attackChoice.hide()
+			playerChoice.show()
+			playerChoice.get_child(0).grab_focus()
+			return
+	
 	# Don't allow player focus to move when choosing attack or target
 	if not playerChoice.visible:
 		return
