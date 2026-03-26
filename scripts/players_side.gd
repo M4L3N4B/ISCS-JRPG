@@ -4,6 +4,7 @@ var combat_queue: Array = []
 var is_battle_playing: bool = false
 var indexSelect: int = 0
 var players_done: Array = []
+var is_choosing_attack: bool = false
 
 @onready var playerChoice = $"../CanvasLayer/PlayerChoice"
 @onready var attackChoice = $"../CanvasLayer/AttackChoice"
@@ -16,6 +17,7 @@ func _ready():
 		player.connect("died", Callable(self, "_on_player_died"))
 	players[0].focus()
 	players[1].unfocus()
+
 
 func _process(_delta):
 	# Go back to previous menu
@@ -52,9 +54,9 @@ func switch_focus(x, y):
 	players[x].focus()
 	players[y].unfocus()
 
-
 # Show the submenu of a player character's attacks
 func _show_attack_choices():
+	is_choosing_attack = true
 	var player = players[indexSelect]
 	
 	# Remove previous attacks from attackChoice
@@ -72,12 +74,10 @@ func _show_attack_choices():
 	playerChoice.find_child("Attack").release_focus()
 	attackChoice.get_child(0).grab_focus() # Automatically select first option
 
-
 func _on_attack_selected(attack: Attack):
 	attackChoice.hide()
 	attack_chosen = attack
 	enemySide._focus_choosing() # Only show enemy focus when an attack has been selected
-
 
 func _on_player_died(player):
 	players.erase(player)
@@ -98,7 +98,6 @@ func _on_enemies_next_player() -> void:
 	_move_to_unacted_player()
 	enemySide.show_player_choices()
 	
-
 func _move_to_unacted_player():
 	# Find first player that hasn't chosen a move yet
 	for i in range( players.size() ):
@@ -111,5 +110,16 @@ func _move_to_unacted_player():
 		if players_done.has(player):
 			player.unfocus()
 	players[indexSelect].focus()
+
+func reset_turn():
+	indexSelect = 0
+	is_choosing_attack = false
+	attack_chosen = null
+	players_done.clear()
+	
+	if players.size() > 0:
+		for player in players:
+			player.unfocus()
+		players[0].focus()
 
 # Source: https://www.youtube.com/watch?v=HEexLmt7enc

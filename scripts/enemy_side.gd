@@ -25,7 +25,7 @@ func _ready():
 
 
 # Handles keypresses
-func _process(delta):
+func _process(_delta):
 	if is_battle_playing:
 		return
 		
@@ -71,13 +71,15 @@ func _play_action(stack):
 		if move.action == "defend":
 			continue
 		if move.action == "attack":
-			await move.attacker.use_attack(move.attack, enemies[move.target])
+			if enemies.size() > 0 and move.target < enemies.size():
+				await move.attacker.use_attack(move.attack, enemies[move.target])
 			await get_tree().create_timer(1).timeout
-	
+			
+	_enemy_turn()
 	combat_queue.clear()
 	is_battle_playing = false
+	playersSide.reset_turn()
 	show_player_choices()
-			
 			
 func switch_focus(x, y):
 	enemies[x].focus()
@@ -115,5 +117,26 @@ func _on_defend_pressed() -> void:
 	playerChoice.hide()
 	combat_queue.push_back({"action": "defend"}) # Push that no one is targeted
 	emit_signal("next_player")
+
+func _enemy_turn():
+	for enemy in enemies:
+		if enemy.current_health <= 0:
+			continue
+			
+		if randf() < 0.15:
+			enemy.defend()
+			print(enemy.character_name + " is defending (TEST).")
+			
+		else:
+			if playersSide.players.size() > 0:
+				var targetPlayer = playersSide.players[randi() % playersSide.players.size()]
+				var attack = enemy.attacks[0]
+				await enemy.use_attack(attack, targetPlayer)
+				if enemy.is_charging:
+					print(enemy.character_name + " is supposed to attack " + targetPlayer.character_name + " (TEST), but is charging.")
+				else:
+					print(enemy.character_name + " attacks " + targetPlayer.character_name + " (TEST).")
+				
+		await get_tree().create_timer(1).timeout
 
 # Source: https://www.youtube.com/watch?v=HEexLmt7enc

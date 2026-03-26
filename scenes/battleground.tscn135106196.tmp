@@ -89,6 +89,5 @@ offset_top = 1.0
 offset_right = 456.0
 offset_bottom = 41.0
 
-[connection signal="next_player" from="Enemies" to="Players" method="_on_enemies_next_player"]
 [connection signal="pressed" from="CanvasLayer/PlayerChoice/Attack" to="Enemies" method="_on_attack_pressed"]
 [connection signal="pressed" from="CanvasLayer/PlayerChoice/Defend" to="Enemies" method="_on_defend_pressed"]

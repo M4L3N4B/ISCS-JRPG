@@ -52,7 +52,6 @@ func use_attack(attack: Attack, target: CharacterBody2D):
 	if attack.charged and not is_charging:
 		is_charging = true
 		attack_charged = attack
-		print(character_name + " is charging up")
 		return
 	
 	# Allow next move to be performed
@@ -69,6 +68,9 @@ func use_attack(attack: Attack, target: CharacterBody2D):
 	
 	# Have opponent take damage
 	target.receive_damage(end_damage)
+	
+	if animation:
+		animation.play("idle")
 	
 
 # is_defending is applied in receive_damage
