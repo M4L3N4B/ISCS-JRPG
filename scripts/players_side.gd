@@ -3,7 +3,9 @@ var players: Array = []
 var combat_queue: Array = []
 var is_battle_playing: bool = false
 var indexSelect: int = 0
+var players_done: Array = []
 
+@onready var playerChoice = $"../CanvasLayer/PlayerChoice"
 @onready var attackChoice = $"../CanvasLayer/AttackChoice"
 @onready var enemySide = get_node("../Enemies")
 var attack_chosen: Attack = null
@@ -16,16 +18,28 @@ func _ready():
 	players[1].unfocus()
 
 func _process(delta):
+	# Don't allow player focus to move when choosing target
+	if not (playerChoice.visible or attackChoice.visible):
+		return
+	
 	if Input.is_action_just_pressed("Select Up"):
-		if indexSelect > 0:
-			indexSelect -= 1
-			switch_focus(indexSelect, indexSelect+1)
+		move_to_valid_focus(-1)
 			
 	if Input.is_action_just_pressed("Select Down"):
-		if indexSelect < players.size() - 1:
-			indexSelect += 1
-			switch_focus(indexSelect, indexSelect-1)
-			
+		move_to_valid_focus(1)
+
+
+# Select only players that haven't chosen a move yet
+func move_to_valid_focus(direction: int):
+	var index_to_check = indexSelect + direction
+	while 0 <= index_to_check and index_to_check < players.size():
+		if not players_done.has( players[index_to_check] ):
+			switch_focus(index_to_check, indexSelect)
+			indexSelect = index_to_check
+			break
+		index_to_check += direction
+
+
 func switch_focus(x, y):
 	players[x].focus()
 	players[y].unfocus()
@@ -53,6 +67,7 @@ func _show_attack_choices():
 func _on_attack_selected(attack: Attack):
 	attackChoice.hide()
 	attack_chosen = attack
+	enemySide._focus_choosing() # Only show enemy focus when an attack has been selected
 
 
 func _on_player_died(player):
@@ -63,17 +78,29 @@ func _on_player_died(player):
 	if players.size() > 0:
 		players[indexSelect].focus()
 
+
+# Go to next character
 func _on_enemies_next_player() -> void:
-	if combat_queue.size() == players.size():
+	players_done.append(players[indexSelect])
+	
+	if players_done.size() == players.size():
 		return
-
-	if indexSelect < players.size() - 1:
-			indexSelect += 1
-			switch_focus(indexSelect, indexSelect-1)
-	else:
-		indexSelect = 0
-		switch_focus(indexSelect, players.size()-1)
-
+	
+	_move_to_unacted_player()
 	enemySide.show_player_choices()
+	
+
+func _move_to_unacted_player():
+	# Find first player that hasn't chosen a move yet
+	for i in range( players.size() ):
+		indexSelect = (indexSelect + 1) % players.size()
+		if not players_done.has( players[indexSelect] ):
+			break
+	
+	# Focus only on selected player
+	for player in players:
+		if players_done.has(player):
+			player.unfocus()
+	players[indexSelect].focus()
 
 # Source: https://www.youtube.com/watch?v=HEexLmt7enc

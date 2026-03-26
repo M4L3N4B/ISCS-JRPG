@@ -25,6 +25,10 @@ func _ready():
 
 func _process(delta):
 	if not playerChoice.visible:
+		# Don't allow enemy focus to move when players are still choosing
+		if playersSide.playerChoice.visible or playersSide.attackChoice.visible:
+			return
+	
 		if Input.is_action_just_pressed("Select Up"):
 			if indexSelect > 0:
 				indexSelect -= 1
@@ -36,7 +40,7 @@ func _process(delta):
 				switch_focus(indexSelect, indexSelect-1)
 				
 		if Input.is_action_just_pressed("Select Action"):
-			if playersSide.attack_chosen == null:
+			if playersSide.attack_chosen == null or playersSide.attackChoice.visible:
 				return
 		
 			combat_queue.push_back({"action": "attack", "target": indexSelect, "attack": playersSide.attack_chosen})
@@ -48,6 +52,9 @@ func _process(delta):
 		
 		
 func _play_action(stack):
+	# Remove all acting players; for the next round
+	playersSide.players_done.clear()
+
 	for move in stack:
 		if move.action == "defend":
 			continue
@@ -75,6 +82,7 @@ func _on_enemy_died(enemy):
 func show_player_choices():
 	playerChoice.show()
 	playerChoice.find_child("Attack").grab_focus()
+	_reset_focus()
 
 func _reset_focus():
 	indexSelect = 0
@@ -85,10 +93,11 @@ func _focus_choosing():
 	_reset_focus()
 	enemies[0].focus()
 
+
 func _on_attack_pressed() -> void:
 	playerChoice.hide()
-	playersSide._show_attack_choices() # Show when attack button pressed
-	_focus_choosing()
+	playersSide._show_attack_choices() # Show list of attacks when attack button pressed
+
 
 func _on_defend_pressed() -> void:
 	playerChoice.hide()
