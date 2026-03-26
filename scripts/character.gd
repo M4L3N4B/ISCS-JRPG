@@ -27,6 +27,12 @@ var current_health = MAX_HEALTH:
 			emit_signal("died", self)
 			queue_free()
 
+
+func _ready():
+	if animation:
+		animation.play("idle")
+
+
 func receive_damage(value):
 	# Halve the damage taken if defending
 	if is_defending:
