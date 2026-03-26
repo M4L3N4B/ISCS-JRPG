@@ -3,10 +3,13 @@ extends CharacterBody2D
 @onready var _focus = $Selected
 @onready var animation = get_node_or_null("AnimatedSprite2D")
 @onready var health_bar = $HealthBar
+
 @export var character_name: String = ""
 @export var MAX_HEALTH: float = 100
-@export var attacks: Array[Attack] = []
 signal died(character)
+
+@export var attacks: Array[Attack] = []
+@export var attack_animations: Array[String] = []
 
 # Gameplay loop variables
 var attack_charged: Attack = null
@@ -20,6 +23,8 @@ var current_health = MAX_HEALTH:
 		
 		if current_health > 0:
 			animation.play("hit")
+			await animation.animation_finished
+			animation.play("idle")
 		
 		else:
 			animation.play("death")
@@ -60,6 +65,8 @@ func use_attack(attack: Attack, target: CharacterBody2D):
 		end_damage *= 1.5
 		print("Critical hit")
 	
+	await play_attack_animation(attack)
+	
 	# Have opponent take damage
 	target.receive_damage(end_damage)
 	
@@ -67,6 +74,17 @@ func use_attack(attack: Attack, target: CharacterBody2D):
 # is_defending is applied in receive_damage
 func defend():
 	is_defending = true
+
+
+func play_attack_animation(attack: Attack):
+	if animation:
+		var idx = attacks.find(attack)
+		if idx < 0 or idx >= attack_animations.size():
+			return
+
+		animation.play( attack_animations[idx] )
+		await animation.animation_finished
+		animation.play("idle")
 
 
 # UI Functions

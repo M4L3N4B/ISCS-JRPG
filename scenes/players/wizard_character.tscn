@@ -9,6 +9,8 @@ script = ExtResource("1_vhoq1")
 
 [node name="AnimatedSprite2D" parent="." unique_id=1355557831 instance=ExtResource("1_5prb8")]
 animation = &"attack1"
+frame = 0
+frame_progress = 0.0
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=1469885364]
 anchors_preset = 5

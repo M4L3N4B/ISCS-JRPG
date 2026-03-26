@@ -233,6 +233,59 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_leome")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4iv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmnu7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ipgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qlyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jkov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ba5mt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_var7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otiyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1ugj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v60b6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbuw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1csj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnu41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlaja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3hnb")
+}],
+"loop": false,
+"name": &"attack_combined",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_tlp34")
 }, {
 "duration": 1.0,
@@ -331,6 +384,6 @@ animations = [{
 texture_filter = 1
 scale = Vector2(2.75, 2.75)
 sprite_frames = SubResource("SpriteFrames_1g42w")
-animation = &"attack2"
-frame = 7
+animation = &"attack_combined"
+frame = 15
 frame_progress = 1.0

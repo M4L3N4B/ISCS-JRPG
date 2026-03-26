@@ -48,7 +48,13 @@ func _process(delta):
 			if playersSide.attack_chosen == null or playersSide.attackChoice.visible:
 				return
 		
-			combat_queue.push_back({"action": "attack", "target": indexSelect, "attack": playersSide.attack_chosen})
+			combat_queue.push_back({
+				"action": "attack",
+				"target": indexSelect,
+				"attack": playersSide.attack_chosen,
+				"attacker": playersSide.players[playersSide.indexSelect]
+			})
+			
 			playersSide.attack_chosen = null
 			emit_signal("next_player")
 		
@@ -65,7 +71,7 @@ func _play_action(stack):
 		if move.action == "defend":
 			continue
 		if move.action == "attack":
-			enemies[move.target].receive_damage(move.attack.damage)
+			await move.attacker.use_attack(move.attack, enemies[move.target])
 			await get_tree().create_timer(1).timeout
 	
 	combat_queue.clear()
